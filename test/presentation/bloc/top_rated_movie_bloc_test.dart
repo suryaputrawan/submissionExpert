@@ -56,7 +56,7 @@ void main() {
       });
 
   blocTest<TopRatedMovieBloc, TopRatedMovieState>(
-      'Should emit [Loading, Error] when get search is unsuccessful',
+      'Should emit [Loading, Error] when get top rated data is unsuccessful',
       build: () {
         when(mockGetTopRatedMovies.execute())
             .thenAnswer((_) async => Left(ServerFailure('Server Failure')));

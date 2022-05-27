@@ -56,7 +56,7 @@ void main() {
       });
 
   blocTest<PopularMovieBloc, PopularMovieState>(
-      'Should emit [Loading, Error] when get search is unsuccessful',
+      'Should emit [Loading, Error] when get popular movie is unsuccessful',
       build: () {
         when(mockGetPopularMovies.execute())
             .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
