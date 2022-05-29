@@ -18,18 +18,6 @@ class SearchPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // TextField(
-            //   onSubmitted: (query) {
-            //     Provider.of<MovieSearchNotifier>(context, listen: false)
-            //         .fetchMovieSearch(query);
-            //   },
-            //   decoration: InputDecoration(
-            //     hintText: 'Search title',
-            //     prefixIcon: Icon(Icons.search),
-            //     border: OutlineInputBorder(),
-            //   ),
-            //   textInputAction: TextInputAction.search,
-            // ),
             TextField(
               onChanged: (query) {
                 context.read<SearchBloc>().add(OnQueryChanged(query));
@@ -46,31 +34,6 @@ class SearchPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            // Consumer<MovieSearchNotifier>(
-            //   builder: (context, data, child) {
-            //     if (data.state == RequestState.Loading) {
-            //       return Center(
-            //         child: CircularProgressIndicator(),
-            //       );
-            //     } else if (data.state == RequestState.Loaded) {
-            //       final result = data.searchResult;
-            //       return Expanded(
-            //         child: ListView.builder(
-            //           padding: const EdgeInsets.all(8),
-            //           itemBuilder: (context, index) {
-            //             final movie = data.searchResult[index];
-            //             return MovieCard(movie);
-            //           },
-            //           itemCount: result.length,
-            //         ),
-            //       );
-            //     } else {
-            //       return Expanded(
-            //         child: Container(),
-            //       );
-            //     }
-            //   },
-            // ),
             BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchLoading) {
@@ -97,7 +60,23 @@ class SearchPage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
-                    child: Container(),
+                    child: Container(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 80.0,
+                            ),
+                            Text(
+                              'No Data!',
+                              style: kHeading5,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 }
               },

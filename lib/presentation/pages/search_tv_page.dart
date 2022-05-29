@@ -60,7 +60,23 @@ class SearchTvSeriesPage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
-                    child: Container(),
+                    child: Container(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 80.0,
+                            ),
+                            Text(
+                              'No Data!',
+                              style: kHeading5,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 }
               },
