@@ -1,6 +1,6 @@
 # a199-flutter-expert-project
 
-**Codemagic Screenshoot**
+**Codemagic**
 
 [![Codemagic build status](https://api.codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/status_badge.svg)](https://codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/latest_build)
 
