@@ -1,4 +1,55 @@
------BEGIN CERTIFICATE-----
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+import 'package:http/io_client.dart';
+
+class Shared {
+  static Future<HttpClient> customHttpClient({
+    bool isTestMode = false,
+  }) async {
+    SecurityContext context = SecurityContext(withTrustedRoots: false);
+    try {
+      List<int> bytes = [];
+      if (isTestMode) {
+        bytes = utf8.encode(_certificatedString);
+      } else {
+        bytes = (await rootBundle.load('certificates/certificate_movie.cer'))
+            .buffer
+            .asUint8List();
+      }
+      log('bytes $bytes');
+      context.setTrustedCertificatesBytes(bytes);
+      log('createHttpClient() - cert added!');
+    } on TlsException catch (e) {
+      if (e.osError?.message != null &&
+          e.osError!.message.contains('CERT_ALREADY_IN_HASH_TABLE')) {
+        log('createHttpClient() - cert already trusted! Skipping.');
+      } else {
+        log('createHttpClient().setTrustedCertificateBytes EXCEPTION: $e');
+        rethrow;
+      }
+    } catch (e) {
+      log('unexpected error $e');
+      rethrow;
+    }
+    HttpClient httpClient = HttpClient(context: context);
+    httpClient.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => false;
+
+    return httpClient;
+  }
+
+  static Future<http.Client> createLEClient({bool isTestMode = false}) async {
+    IOClient client =
+        IOClient(await Shared.customHttpClient(isTestMode: isTestMode));
+    return client;
+  }
+}
+
+const _certificatedString = """-----BEGIN CERTIFICATE-----
 MIIF5zCCBM+gAwIBAgIQAdKnBRs48TrGZbcfFRKNgDANBgkqhkiG9w0BAQsFADBG
 MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRUwEwYDVQQLEwxTZXJ2ZXIg
 Q0EgMUIxDzANBgNVBAMTBkFtYXpvbjAeFw0yMTEwMjEwMDAwMDBaFw0yMjExMTgy
@@ -31,4 +82,4 @@ AAHoVgjJSWWhy+t66cPauipX2dR0b4Ul0cz42aRlmpExJwRqm7jCtpaJU3nuxOwN
 jia+Kff2MpLspB3nHmHOZ2gvwU05oiZQvnranwshboDhCDV3ucFX4IKPr74+1P8l
 DUpiVEdsyxDA9Sbkc2QS57dWiD0Ju55Sxhhd1uSHi4aqKaFpAA4XZr4edUwWFE4c
 4JJi1ufB/lOcf+G5uV2HrO27/FScF/8dZyzy
------END CERTIFICATE-----
+-----END CERTIFICATE-----""";

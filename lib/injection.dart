@@ -44,9 +44,7 @@ import 'package:ditonton/presentation/bloc/tv_series_top_rated_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_watchlist_status_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_tv_series_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
-import 'package:http/io_client.dart';
 
 final locator = GetIt.instance;
 
@@ -182,7 +180,6 @@ void init() {
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: locator()));
-
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
   locator.registerLazySingleton<TvRemoteDataSource>(
@@ -194,6 +191,7 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
-  locator.registerLazySingleton(() => IOClient());
+  //locator.registerLazySingleton(() => http.Client());
+  //locator.registerLazySingleton(() => IOClient());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
 }

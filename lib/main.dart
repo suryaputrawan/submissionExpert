@@ -37,8 +37,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
+import 'data/datasources/movie_remote_data_source.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HttpSSLPinning.init();
   await Firebase.initializeApp();
   di.init();
   runApp(MyApp());
