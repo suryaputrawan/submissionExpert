@@ -2,9 +2,9 @@
 
 **Codemagic**
 
-[![Codemagic build status](https://api.codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/status_badge.svg)](https://codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/latest_build)
+<!-- [![Codemagic build status](https://api.codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/status_badge.svg)](https://codemagic.io/apps/628b4753d4413826507acfe5/628b4753d4413826507acfe4/latest_build) -->
 
-<!-- ![image](https://user-images.githubusercontent.com/56149073/170936081-48fabf45-1547-4615-adba-6554b3ac7373.png) -->
+![image](https://user-images.githubusercontent.com/56149073/170936081-48fabf45-1547-4615-adba-6554b3ac7373.png)
 
 
 
